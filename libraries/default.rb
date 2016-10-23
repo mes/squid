@@ -7,7 +7,7 @@ module Opscode
         when 'debian'
           return '3.1' if node['platform_version'].to_i == 7
           return '3.1' if node['platform_version'].to_i == 12
-          return '3.1' if node['platform_version'].to_i == 14
+          return '3.3' if node['platform_version'].to_i == 14
           return '3.4' if node['platform_version'].to_i == 8
           return '3.5' if node['platform_version'].to_i == 16
         when 'rhel'
