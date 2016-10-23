@@ -12,7 +12,7 @@ end
 
 recipe 'squid::default', 'Installs and configures Squid.'
 
-source_url 'https://github.com/chef-cookbooks/squid'
-issues_url 'https://github.com/chef-cookbooks/squid/issues'
+source_url 'https://github.com/chef-cookbooks/squid' if respond_to?(:source_url)
+issues_url 'https://github.com/chef-cookbooks/squid/issues' if respond_to?(:issues_url)
 
 chef_version '>= 12.1'
