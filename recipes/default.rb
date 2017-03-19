@@ -42,6 +42,24 @@ Chef::Log.debug("Squid host_acls: #{host_acl}")
 Chef::Log.debug("Squid url_acls: #{url_acl}")
 Chef::Log.debug("Squid acls: #{acls}")
 
+# Squid3 with SSL support on Ubuntu 14.04
+# @see https://launchpad.net/~notartom/+archive/ubuntu/squid-ssl
+apt_repository "squid-ssl" do
+  uri "http://ppa.launchpad.net/notartom/squid-ssl/ubuntu"
+  distribution node['lsb']['codename']
+  components ["main"]
+  keyserver "keyserver.ubuntu.com"
+  key "EF57F81A"
+end
+
+# Pin the Squid SSL packages, since APT will prefer higher versions from the official repos
+['squid3', 'squid3-common'].each do |package|
+  apt_preference package do
+    pin          'version 3.3.8-1ubuntu6.6+ssl' # use 'apt-cache policy squid3' to find the right value
+    pin_priority '700'                          # higher than the default 500
+  end
+end
+
 # packages
 package node['squid']['package']
 
